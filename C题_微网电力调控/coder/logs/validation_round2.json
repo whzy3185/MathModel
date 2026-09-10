@@ -1,0 +1,5 @@
+{
+  "Q4-2-causal": {"soc_min": 1199.9999999999923, "soc_max": 10800.00000000001, "max_soc_reconstruction_error": 1.0459189070388675e-11, "continuity_error": 0.0, "max_charge": 833.3333333333333, "max_discharge": 833.3333333333333, "simultaneous": 0, "min_actual_balance_slack": -1.1368683772161603e-13},
+  "Q4-3-causal": {"soc_min": 1199.9999999999982, "soc_max": 10800.000000000004, "max_soc_reconstruction_error": 0.0, "continuity_error": 0.0, "max_charge": 833.3333333333333, "max_discharge": 833.3333333333333, "simultaneous": 0, "min_actual_balance_slack": -1.4210854715202004e-14},
+  "Q3-alt-penalty": {"soc_min": 1199.9999999999975, "soc_max": 10800.000000000002, "max_soc_reconstruction_error": 0.0, "continuity_error": 0.0, "max_charge": 833.3333333333333, "max_discharge": 833.3333333333333, "simultaneous": 0, "min_actual_balance_slack": -1.4210854715202004e-14}
+}
