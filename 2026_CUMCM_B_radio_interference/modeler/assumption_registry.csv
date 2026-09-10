@@ -1,0 +1,6 @@
+ID,Type,Scope,Assumption,Why needed,Impact,Validation plan,Status
+SA-01,Strong,Q2,"若计算期望，Omega1上初版等权离散","题面未给空间分布","可能改变推荐S2","与minimax/边界加权比较",OPEN
+SA-02,Strong,Offline,"Uniform[-1,1]仅作为一种离线误差场景","需要生成测试误差","不可代表官方分布","加入截断高斯和adversarial endpoints",OPEN
+SA-03,Strong,Q3,"以1000m最小接收半径做确定性覆盖baseline","保证不漏全向源","时间偏保守","与演练自适应方案比较",OPEN
+RA-01,Routine,All,"二维平面忽略高度差","题面明确","低","无需额外验证",ACCEPTED
+RA-02,Routine,All,"移动路径为直线且速度5m/s","题面明确","低","计时单元测试",ACCEPTED

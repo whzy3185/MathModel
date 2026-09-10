@@ -1,0 +1,25 @@
+{
+  "seed": 20260910,
+  "q1_random_cases": 300,
+  "q1_true_source_contained": 300,
+  "q1_bounded_regions": 300,
+  "q2_demo": {
+    "S1": [
+      0.0,
+      0.0
+    ],
+    "bearing_deg": 35.0,
+    "recommended_S2": [
+      984.808,
+      -173.648
+    ],
+    "score": 0.637805,
+    "guaranteed_detection_rate_under_R1000": 0.913333,
+    "q10_crossing_angle_deg": 45.368,
+    "median_crossing_angle_deg": 61.442,
+    "move_distance_m": 1000.0,
+    "note": "Q2 demo depends on an explicitly declared design prior; it is not an official-simulator result."
+  },
+  "q3_guaranteed_scan_points": 7,
+  "q4_safe_triangular_patch_points_s1000": 31
+}

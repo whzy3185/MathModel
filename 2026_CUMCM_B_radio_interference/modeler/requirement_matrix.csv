@@ -1,0 +1,5 @@
+Question,Input,Output,Objective,Constraints,Required evidence,Potential model family,Dependency,Validation
+Q1,"检测点坐标;同一源示向度","定位多边形;直径D;D直径圆覆盖判定","准确刻画±1°有界误差几何","前向楔;可能空/无界","半平面式;顶点;直径对;反例","Half-plane intersection; convex geometry",None,"解析构造+随机bounded-error+退化测试"
+Q2,"S1;theta1;全向源","S2策略;候选区域","提高定位质量并控制二次失信号和移动成本","R未知且1000-1500;G在目标圆","候选区定义;评分;baseline比较","Optimal experimental design; robust optimization",Q1,"Monte Carlo/minimax;二测后D"
+Q3,"20频道;10-16全向源;隐藏案例","在线动作序列;全部清除;表1统计","保证全清除并最小时间","5m/s;检测5s;切频1s;clear 3/5s","覆盖证明;日志;清除率;平均时间","Active sensing; routing; set-membership",Q1+Q2,"离线MC+官方演练+正式日志"
+Q4,"Q3+定向源及未知方向","鲁棒在线策略;正式结果","方向盲区下仍全清除且尽量快","定向覆盖±90°;no_signal歧义","三角网格可见性证明;日志","Robust coverage; active sensing",Q1+Q2+Q3,"方向压力测试+官方演练+正式日志"

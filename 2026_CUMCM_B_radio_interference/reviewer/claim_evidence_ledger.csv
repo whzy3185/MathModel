@@ -1,0 +1,5 @@
+Claim,Supporting model,Supporting experiment,Supporting table/figure,Validation,Limitations,Confidence
+"Q1定位区域是检测楔形的凸半平面交","Q1 Model Spec","E1",TBD,"解析推导+单元测试","仅在给定±1°有界误差模型下",High
+"直径为D的圆不一定覆盖定位区域","Q1 coverage criterion","E1 counterexample",TBD,"等边三角形反例+算法判定","问题若另行指定圆心需按定义解释",High
+"Q4三角网格可对任意定向方向至少提供一个可见顶点","Q4 convex-halfplane theorem","E4",TBD,"解析证明+方向穷举","要求包含源的三角形三顶点距源均<=1000",High
+"Q3/Q4主策略优于baseline",TBD,E3/E4,TBD,TBD,"必须等待数值/官方演练",NOT_VERIFIABLE
