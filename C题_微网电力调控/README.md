@@ -1,23 +1,59 @@
-# 2026 高教社杯数学建模 C题：微网与外部电网电力调控策略
+# 2026 高教社杯 C 题：微网与外部电网电力调控策略
 
-## Project Status
+本目录是分支 `c` 的完整数学建模工作空间，按“题目解析 → 数据审计 → 方法选择 → 数学建模 → 实现 → 实验 → 验证 → 改进 → 论文构造 → 独立审查”的证据链组织。
 
-Current Stage: Problem Understanding
+## 当前阶段
 
-## Evidence Source
+- Problem Understanding: **PASS**
+- Data Audit: **PASS**
+- Model Specification: **PASS**
+- Implementation: **PASS**
+- Numerical Experiments: **PASS**
+- Result Validation: **PASS**
+- Model Refinement: **PASS (Round 2)**
+- Paper Construction: **IN PROGRESS**
+- Independent Review: **ROUND 2 COMPLETED**
 
-赛题文件 `C题.pdf` 已完成解析。题目要求围绕微网购电、储能充放电和动态电价条件下的调控策略建立数学模型，并输出 result1.xlsx、result2.xlsx、result3.xlsx、result4-2.xlsx、result4-3.xlsx 五类结果文件。
+## 核心模型
 
-## Workflow
+1. **问题 1**：10 分钟离散的线性规划储能套利模型。
+2. **问题 2**：星期周期负载预测 + 光伏 EWMA 预测 + 28 日滚动 0.8 分位风险储备 + 储能 LP。
+3. **问题 3**：0:00 日前计划 + 6/12/18 时滚动调整；外部光伏预报与历史预测按滚动误差选择，并对负载作日内偏差修正。
+4. **问题 4**：对波动电价采用 7 日滞后因果预测进行调度、按附件 4 实际价格结算，并以“完全知晓当日电价”的 oracle 作为信息价值下界。
 
-- problem: 原始题目、附件说明
-- modeler: 问题分析、变量、模型、假设、推导
-- coder: 数据处理、求解程序、实验结果
-- writer: 论文草稿
-- reviewer: 审核记录
+## Round-2 关键结果
 
-## Gate
+- Q1：优化购电费 **35126.95 元**，相对无储能净负荷直购基线下降 **26.90%**。
+- Q2（2/1-12/31）：总费用 **14916093.66 元**，紧急购电 **367486.93 kWh**。
+- Q3：总费用 **14679141.98 元**，较 Q2 下降 **1.59%**；紧急购电量下降约 **28.98%**。
+- Q3 结算替代口径敏感性：保守“计划费之外再加 50% 向下违约罚金”下总费用 **14927429.70 元**，与主口径差约 **1.69%**。
+- Q4-2（严格因果价格信息）：总费用 **15774011.24 元**。
+- Q4-3（严格因果价格信息）：总费用 **15507241.00 元**，较 Q4-2 下降 **1.6912%**。
+- Q4 perfect-information oracle 分别为 **15603450.52 元** 与 **15338096.77 元**；因果策略只高约 **1.09% / 1.10%**。
+- 7 日滞后价格预测（2/1-12/31）MAE **0.047151 元/kWh**、相关系数 **0.981085**。
+- 风险分位数 0.7/0.8/0.9 敏感性中，Q2/Q3 均以 **0.8** 成本最低。
 
-Problem Understanding: PASS
-Data Readiness: IN PROGRESS
-Ready for Modeling: NO
+## 目录说明
+
+- `problem/`：赛题 PDF、原始附件、官方结果模板（不覆盖原件）。
+- `data/processed/`：经审计后提取的数值数据与字段元信息。
+- `modeler/`：Modeling Brief、模型规格、假设、失效区域和改进记录。
+- `coder/`：实现代码、实验计划、审计与运行日志。
+- `figures/`：论证型可视化。
+- `results/`：result1.xlsx ~ result4-3.xlsx。
+- `writer/`：论文结构、表格和论文草稿。
+- `reviewer/`：独立审核与 Claim-Evidence Ledger。
+- `state/`：求解状态缓存，用于复查和复现实验。
+
+## 重要约定
+
+- 10 分钟时步：`Δt = 1/6 h`。
+- SOC：`E_t = E_(t-1) + 0.9*c_t - d_t/0.9`。
+- Q2-Q4 不强制每日首尾 SOC 相等，而保持跨日连续；Q1 强制 `E_24 = E_0 = 6000 kWh`。
+- 官方结果模板时间标签与原始功率列存在边界命名歧义，按列位置一一对应并在审查记录中披露。
+
+## 当前 Gate
+
+Model Refinement Round 2: **PASS**  
+Paper Construction: **READY / IN PROGRESS**  
+Final Delivery: **尚需完成因果版 result4-3.xlsx 模板写回与最终论文审稿**
