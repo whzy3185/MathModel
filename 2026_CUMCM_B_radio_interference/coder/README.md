@@ -21,3 +21,14 @@ python coder/run_q4_stress.py
 ```
 
 结果位于 `coder/results/`，解释见 `coder/experiments/experiment_summary_v0.1.md`。
+
+## 官方模拟器桥接
+
+官方模拟器界面显示接口就绪后，在同一台电脑运行：
+
+```bash
+python coder/run_official.py --question 3 --robot-id <参赛队号> --case-code <案例编码>
+python coder/run_official.py --question 4 --robot-id <参赛队号> --case-code <案例编码>
+```
+
+程序会保留逐动作 JSONL 与 `run_summary.json`。正式测试结束后，把模拟器导出的原名加密日志放入 `coder/results/formal_logs/`，然后用 `summarize_official_runs.py` 生成机器人侧表1草稿并与官方界面/日志交叉核验。
