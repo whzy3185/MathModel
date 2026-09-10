@@ -160,7 +160,7 @@ def localization_region(
     unbounded = has_recession_direction(hps)
 
     if not feasible:
-        # With bearing wedges a non-empty pointed polyhedron has an extreme point. If no
+        # With bearing wedges a non-empty pointed polyhedron has an extreme point.  If no
         # feasible boundary intersection exists, classify as EMPTY; this is also the safe
         # response for inconsistent measured wedges.
         return LocalizationRegion("EMPTY", [], hps)
@@ -185,6 +185,70 @@ def polygon_diameter(vertices: Sequence[Point]) -> Tuple[float, Tuple[Point, Poi
                 best_d2 = d2
                 best_pair = (vertices[i], vertices[j])
     return best_d2 ** 0.5, best_pair
+
+
+def _circumcircle(a: Point, b: Point, c: Point, tol: float = 1e-12):
+    """Return circumcenter/radius for three non-collinear points, else None."""
+    ax, ay = a
+    bx, by = b
+    cx, cy = c
+    d = 2.0 * (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by))
+    if abs(d) <= tol:
+        return None
+    a2 = ax * ax + ay * ay
+    b2 = bx * bx + by * by
+    c2 = cx * cx + cy * cy
+    ux = (a2 * (by - cy) + b2 * (cy - ay) + c2 * (ay - by)) / d
+    uy = (a2 * (cx - bx) + b2 * (ax - cx) + c2 * (bx - ax)) / d
+    center = (ux, uy)
+    return center, hypot(ux - ax, uy - ay)
+
+
+def minimum_enclosing_circle(points: Sequence[Point], tol: float = 1e-8):
+    """Exact minimum enclosing circle for a small 2-D point set.
+
+    A Euclidean minimum enclosing circle is supported by at most three boundary points.
+    Localization polygons in this task have very few vertices, so enumerating all one-,
+    two-, and three-point support circles is simpler and more auditable than a randomized
+    Welzl implementation.  Covering the polygon vertices also covers the whole convex polygon.
+    """
+    pts = list(points)
+    if not pts:
+        return (0.0, 0.0), 0.0
+    if len(pts) == 1:
+        return pts[0], 0.0
+
+    def covers(center: Point, radius: float) -> bool:
+        return all(hypot(p[0] - center[0], p[1] - center[1]) <= radius + tol for p in pts)
+
+    best_center = pts[0]
+    best_radius = float("inf")
+
+    # Two-point support circles.
+    for i in range(len(pts)):
+        for j in range(i + 1, len(pts)):
+            c = ((pts[i][0] + pts[j][0]) / 2.0, (pts[i][1] + pts[j][1]) / 2.0)
+            r = hypot(pts[i][0] - c[0], pts[i][1] - c[1])
+            if r < best_radius and covers(c, r):
+                best_center, best_radius = c, r
+
+    # Three-point support circles.
+    for i in range(len(pts)):
+        for j in range(i + 1, len(pts)):
+            for k in range(j + 1, len(pts)):
+                cc = _circumcircle(pts[i], pts[j], pts[k])
+                if cc is None:
+                    continue
+                c, r = cc
+                if r < best_radius and covers(c, r):
+                    best_center, best_radius = c, r
+
+    # Numerically degenerate collinear sets are always covered by a diameter-pair circle.
+    if best_radius == float("inf"):
+        _, (a, b) = polygon_diameter(pts)
+        best_center = ((a[0] + b[0]) / 2.0, (a[1] + b[1]) / 2.0)
+        best_radius = hypot(a[0] - best_center[0], a[1] - best_center[1])
+    return best_center, best_radius
 
 
 def diameter_circle_covers(vertices: Sequence[Point], tol: float = 1e-8):

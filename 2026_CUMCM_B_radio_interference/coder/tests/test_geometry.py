@@ -5,8 +5,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from geometry import diameter_circle_covers, localization_region, point_satisfies_region, polygon_diameter
+from geometry import diameter_circle_covers, localization_region, minimum_enclosing_circle, point_satisfies_region, polygon_diameter
 from search_policy import omni_guaranteed_scan_points, triangular_directional_scan_points
+from q2_candidate_region import conservative_max_distance, robust_symmetric_second_points
 
 
 class GeometryTests(unittest.TestCase):
@@ -38,6 +39,18 @@ class GeometryTests(unittest.TestCase):
         ok,_,_=diameter_circle_covers(rect)
         self.assertTrue(ok)
 
+    def test_minimum_enclosing_circle_triangle(self):
+        D=100.0
+        tri=[(0.0,0.0),(D,0.0),(D/2,math.sqrt(3)*D/2)]
+        _,r=minimum_enclosing_circle(tri)
+        self.assertAlmostEqual(r,D/math.sqrt(3),places=7)
+
+    def test_q2_robust_second_points_guarantee_receive(self):
+        p1,p2=robust_symmetric_second_points((0.0,0.0),35.0)
+        for p in (p1,p2):
+            self.assertLessEqual(math.hypot(*p),1000.000001)
+            self.assertLessEqual(conservative_max_distance((0.0,0.0),35.0,p),1000.000001)
+
     def test_q3_seven_point_cover_dense_grid(self):
         pts=omni_guaranteed_scan_points()
         for ir in range(0,181,2):
@@ -49,7 +62,7 @@ class GeometryTests(unittest.TestCase):
 
     def test_q4_triangular_patch_halfplane_visibility(self):
         pts=triangular_directional_scan_points(spacing=1000.0)
-        # Dense source/orientation test. This numerically checks the analytic convex-hull proof.
+        # Dense source/orientation test.  This numerically checks the analytic convex-hull proof.
         for rho in [0,300,900,1500,1799]:
             for ak in range(0,360,15):
                 g=(rho*math.cos(math.radians(ak)),rho*math.sin(math.radians(ak)))

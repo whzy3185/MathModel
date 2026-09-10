@@ -1,0 +1,8 @@
+{
+  "event_driven": {"cases":100,"full_clear_cases":100,"mean_clear_ratio":1.0,"mean_virtual_time_s":6747.770290117706,"median_virtual_time_s":6706.949601183072,"mean_avg_clear_time_s":524.9230128454709,"mean_measure_calls":102.66,"mean_clear_calls":12.95,"total_anomalies":0},
+  "scan_then_clear": {"cases":100,"full_clear_cases":100,"mean_clear_ratio":1.0,"mean_virtual_time_s":5479.981397014602,"median_virtual_time_s":5508.462658333508,"mean_avg_clear_time_s":427.95734887082057,"mean_measure_calls":148,"mean_clear_calls":12.95,"total_anomalies":0},
+  "discover_once_then_clear": {"cases":100,"full_clear_cases":100,"mean_clear_ratio":1.0,"mean_virtual_time_s":6702.76235814732,"median_virtual_time_s":6741.785313692111,"mean_avg_clear_time_s":522.2077547268275,"mean_measure_calls":102.29,"mean_clear_calls":12.95,"total_anomalies":0},
+  "harvest_then_clear": {"cases":100,"full_clear_cases":100,"mean_clear_ratio":1.0,"mean_virtual_time_s":6702.76235814732,"median_virtual_time_s":6741.785313692111,"mean_avg_clear_time_s":522.2077547268275,"mean_measure_calls":102.29,"mean_clear_calls":12.95,"total_anomalies":0},
+  "opportunistic_then_clear": {"cases":100,"full_clear_cases":100,"mean_clear_ratio":1.0,"mean_virtual_time_s":5404.266166816708,"median_virtual_time_s":5420.185117479048,"mean_avg_clear_time_s":422.0932118009023,"mean_measure_calls":135.28,"mean_clear_calls":12.95,"total_anomalies":0},
+  "note": "Offline development simulator only; not official-test evidence. Same 100 hidden cases are paired between strategies."
+}

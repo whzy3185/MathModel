@@ -1,0 +1,8 @@
+{
+  "directed=0.0|R=1000|error=endpoint_hash": {"cases":20,"full_clear_cases":20,"mean_clear_ratio":1.0,"mean_virtual_time_s":11085.622249088678,"max_virtual_time_s":11544.863901864856,"mean_measure_calls":411.8,"mean_fallback_steps":0.85,"total_anomalies":0},
+  "directed=0.5|R=1000|error=endpoint_hash": {"cases":20,"full_clear_cases":20,"mean_clear_ratio":1.0,"mean_virtual_time_s":12372.64529438501,"max_virtual_time_s":14139.049307590894,"mean_measure_calls":508.75,"mean_fallback_steps":18.8,"total_anomalies":0},
+  "directed=1.0|R=1000|error=endpoint_hash": {"cases":20,"full_clear_cases":20,"mean_clear_ratio":1.0,"mean_virtual_time_s":12971.752517127175,"max_virtual_time_s":14422.850338500657,"mean_measure_calls":561.55,"mean_fallback_steps":28.8,"total_anomalies":0},
+  "directed=1.0|R=1000|error=plus_one": {"cases":20,"full_clear_cases":20,"mean_clear_ratio":1.0,"mean_virtual_time_s":13391.953748005042,"max_virtual_time_s":15902.003955807162,"mean_measure_calls":630.4,"mean_fallback_steps":112.45,"total_anomalies":0},
+  "directed=1.0|R=1000|error=minus_one": {"cases":20,"full_clear_cases":20,"mean_clear_ratio":1.0,"mean_virtual_time_s":13515.55562958625,"max_virtual_time_s":15025.170270703751,"mean_measure_calls":653.25,"mean_fallback_steps":115.8,"total_anomalies":0},
+  "note": "Offline worst-radius bounded-error stress only; not official simulator evidence."
+}

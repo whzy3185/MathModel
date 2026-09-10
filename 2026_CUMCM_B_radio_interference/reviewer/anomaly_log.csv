@@ -1,1 +1,4 @@
 run_id,stage,parameters,result,error_or_anomaly,possible_cause,impact,action
+A-001,Q3 exploratory,"scan_then_clear;100 cases","87/100 full clear","部分已发现目标没有进入足够的局部定位迭代","局部迭代上限错误使用累计历史观测数","该批探索结果作废","Coder local-repair: 独立local_iterations计数;重跑后100/100"
+A-002,Q3 stress,"boundary;R=1000;endpoint_hash;50 cases","29/50 full clear","localization status=EMPTY","svd_deg两位小数量化使最终误差可能略超1.000°","端点场景大面积假空集","runtime bearing envelope 1.005°;重跑后50/50"
+A-003,Q3 stress,"clustered;R=1000;plus_one;50 cases","2/50 full clear","localization status=EMPTY","同A-002","端点+舍入导致严重失败","runtime bearing envelope 1.005°;重跑后50/50"

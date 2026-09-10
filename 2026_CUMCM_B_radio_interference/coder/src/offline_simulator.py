@@ -7,8 +7,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from hashlib import sha256
-from math import atan2, degrees, hypot
-from typing import Dict, Iterable, Optional, Tuple
+from math import atan2, cos, degrees, hypot, radians, sin
+from typing import Dict, Iterable, List, Optional, Tuple
 
 Point = Tuple[float, float]
 
@@ -32,9 +32,10 @@ class Source:
 
 
 class OfflineSimulator:
-    def __init__(self, sources: Iterable[Source], seed: int = 20260910):
+    def __init__(self, sources: Iterable[Source], seed: int = 20260910, error_mode: str = "hash_uniform"):
         self.sources: Dict[int, Source] = {s.channel: s for s in sources}
         self.seed = seed
+        self.error_mode = error_mode
         self.position: Point = (0.0, 0.0)
         self.current_channel = 1
         self.virtual_time_s = 0.0
@@ -67,10 +68,19 @@ class OfflineSimulator:
         return abs(signed_angle_deg(receiver_bearing, s.direction_deg)) <= 90.0 + 1e-12
 
     def _fixed_local_error(self, channel: int, p: Point) -> float:
-        # Same channel+same location => same error. 1 cm quantization is only for the
+        # Same channel+same location => same error.  1 cm quantization is only for the
         # offline fixture and is not asserted about the official simulator.
         key = f"{self.seed}|{channel}|{round(p[0],2)}|{round(p[1],2)}".encode()
-        v = int.from_bytes(sha256(key).digest()[:8], "big") / 2**64
+        digest = sha256(key).digest()
+        if self.error_mode == "plus_one":
+            return 1.0
+        if self.error_mode == "minus_one":
+            return -1.0
+        if self.error_mode == "endpoint_hash":
+            return 1.0 if (digest[0] & 1) else -1.0
+        if self.error_mode != "hash_uniform":
+            raise ValueError(f"unknown error_mode={self.error_mode}")
+        v = int.from_bytes(digest[:8], "big") / 2**64
         return 2.0 * v - 1.0
 
     def measure(self, x: float, y: float, channel: int):

@@ -1,0 +1,7 @@
+{
+  "uniform|R=mixed|error=hash_uniform": {"cases":50,"full_clear_cases":50,"mean_clear_ratio":1.0,"mean_virtual_time_s":5329.871451787115,"p95_virtual_time_s":6472.581898808724,"mean_measure_calls":133.38,"total_anomalies":0},
+  "boundary|R=min|error=endpoint_hash": {"cases":50,"full_clear_cases":50,"mean_clear_ratio":1.0,"mean_virtual_time_s":6208.042511240803,"p95_virtual_time_s":6990.156559511205,"mean_measure_calls":155.6,"total_anomalies":0},
+  "clustered|R=min|error=plus_one": {"cases":50,"full_clear_cases":50,"mean_clear_ratio":1.0,"mean_virtual_time_s":4538.531051103183,"p95_virtual_time_s":6489.851512391012,"mean_measure_calls":135.4,"total_anomalies":0},
+  "ring|R=min|error=minus_one": {"cases":50,"full_clear_cases":50,"mean_clear_ratio":1.0,"mean_virtual_time_s":5862.201323657166,"p95_virtual_time_s":6488.104265220264,"mean_measure_calls":157.44,"total_anomalies":0},
+  "note": "Offline bounded-error stress tests only; not official simulator evidence."
+}

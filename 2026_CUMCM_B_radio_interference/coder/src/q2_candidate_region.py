@@ -6,11 +6,19 @@ problem statement specifies only bounded geometry, not a probability law.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from math import acos, cos, hypot, pi, radians, sin, sqrt
+from math import acos, atan2, cos, hypot, pi, radians, sin, sqrt
 from random import Random
 from typing import List, Sequence, Tuple
 
 Point = Tuple[float, float]
+
+
+def angle_wrap_rad(x: float) -> float:
+    while x <= -pi:
+        x += 2 * pi
+    while x > pi:
+        x -= 2 * pi
+    return x
 
 
 def ray_disk_interval(sensor: Point, phi: float, disk_radius: float = 1800.0):
@@ -166,3 +174,96 @@ def recommend_second_point(
     pool = feasible if feasible else scored
     pool.sort(key=lambda s: (s.score, s.guaranteed_detection_rate, s.q10_angle_deg), reverse=True)
     return pool[0], pool[:50]
+
+
+# ---------------------------------------------------------------------------
+# Distribution-free conservative design used as the Q2 primary strategy.
+# ---------------------------------------------------------------------------
+
+def conservative_sector_corners(
+    s1: Point,
+    bearing_deg: float,
+    r_min: float = 5.0,
+    r_max: float = 1500.0,
+    delta_deg: float = 1.0,
+) -> List[Point]:
+    """Four extreme points of a conservative first-measurement sector.
+
+    The true feasible set is further clipped by the radius-1800 target disk, so using the
+    complete annular sector is conservative. A second site within 1000 m of every point in
+    this sector is guaranteed to receive an omni source regardless of its unknown receive
+    radius in [1000,1500].
+    """
+    out: List[Point] = []
+    for r in (r_min, r_max):
+        for e in (-delta_deg, delta_deg):
+            a = radians(bearing_deg + e)
+            out.append((s1[0] + r * cos(a), s1[1] + r * sin(a)))
+    return out
+
+
+def conservative_max_distance(
+    s1: Point,
+    bearing_deg: float,
+    s2: Point,
+    r_min: float = 5.0,
+    r_max: float = 1500.0,
+    delta_deg: float = 1.0,
+) -> float:
+    """Exact max distance from S2 to the conservative annular sector.
+
+    For fixed angle squared distance is convex in r, hence its maximum is at r_min/r_max.
+    Over the 2-degree angular interval the minimum projection onto S2-S1, and therefore the
+    maximum distance, occurs at an angular endpoint. Thus the four sector corners suffice.
+    """
+    return max(
+        hypot(s2[0] - g[0], s2[1] - g[1])
+        for g in conservative_sector_corners(s1, bearing_deg, r_min, r_max, delta_deg)
+    )
+
+
+def guaranteed_second_point_region_test(
+    s1: Point,
+    bearing_deg: float,
+    s2: Point,
+    guaranteed_receive_radius: float = 1000.0,
+    max_move: float | None = 1000.0,
+) -> bool:
+    """Membership test for the distribution-free Q2 candidate region."""
+    if max_move is not None and hypot(s2[0] - s1[0], s2[1] - s1[1]) > max_move + 1e-9:
+        return False
+    return conservative_max_distance(s1, bearing_deg, s2) <= guaranteed_receive_radius + 1e-9
+
+
+def robust_symmetric_second_points(
+    s1: Point,
+    bearing_deg: float,
+    r_min: float = 5.0,
+    r_max: float = 1500.0,
+    delta_deg: float = 1.0,
+    guaranteed_receive_radius: float = 1000.0,
+    max_move: float = 1000.0,
+) -> Tuple[Point, Point]:
+    """Return a symmetric, distribution-free pair of strong Q2 candidates.
+
+    Put the axial coordinate at the midrange of possible source distance, then push laterally
+    as far as allowed by both the 1000-m guaranteed-detection condition and the move budget.
+    The construction is deterministic and does not require a source-position probability law.
+    """
+    m = 0.5 * (r_min + r_max)
+    e = (cos(radians(bearing_deg)), sin(radians(bearing_deg)))
+    nvec = (-e[1], e[0])
+
+    def point(h: float) -> Point:
+        return (s1[0] + m * e[0] + h * nvec[0], s1[1] + m * e[1] + h * nvec[1])
+
+    h_travel = sqrt(max(0.0, max_move * max_move - m * m))
+    lo, hi = 0.0, guaranteed_receive_radius + max_move
+    for _ in range(80):
+        mid = 0.5 * (lo + hi)
+        if conservative_max_distance(s1, bearing_deg, point(mid), r_min, r_max, delta_deg) <= guaranteed_receive_radius:
+            lo = mid
+        else:
+            hi = mid
+    h = min(h_travel, lo)
+    return point(h), point(-h)
