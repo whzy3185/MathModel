@@ -1,0 +1,11 @@
+{
+  "price_forecast_lag7": {"mae": 0.04715118305056554, "rmse": 0.06534801504178886, "corr": 0.9810842938898601},
+  "q3_alt_positive_down_penalty": {"total_cost_feb_dec": 14927429.698494768, "plan_cost_feb_dec": 13539113.549405672, "emergency_kwh_feb_dec": 221251.38595752057, "purchase_kwh_feb_dec": 22613911.095287096, "emergency_cost_feb_dec": 846952.0888820644, "adjustment_settlement_feb_dec": 541364.0602070333},
+  "q4_2_causal": {"total_cost_feb_dec": 15774011.239908285, "plan_cost_feb_dec": 14275289.584136214, "emergency_kwh_feb_dec": 367486.9253333073, "purchase_kwh_feb_dec": 22123238.570159778, "emergency_cost_feb_dec": 1498721.6557720713},
+  "q4_3_causal": {"total_cost_feb_dec": 15507241.001715213, "plan_cost_feb_dec": 14321387.704126012, "emergency_kwh_feb_dec": 261093.56707876193, "purchase_kwh_feb_dec": 21772863.440291338, "emergency_cost_feb_dec": 1017179.5389598673, "adjustment_settlement_feb_dec": 168673.75862933393},
+  "q4_2_oracle": {"total_cost_feb_dec": 15603450.520422824, "plan_cost_feb_dec": 14104728.864650752, "emergency_kwh_feb_dec": 367486.9253333073, "purchase_kwh_feb_dec": 22122996.241662208, "emergency_cost_feb_dec": 1498721.6557720713},
+  "q4_3_oracle": {"total_cost_feb_dec": 15338096.770472687, "plan_cost_feb_dec": 14150787.66832302, "emergency_kwh_feb_dec": 261097.3011422023, "purchase_kwh_feb_dec": 21768421.8686923, "emergency_cost_feb_dec": 1016994.6965940574, "adjustment_settlement_feb_dec": 170314.40555561328},
+  "q4_2_causal_premium_vs_oracle_pct": 1.093096166532015,
+  "q4_3_causal_premium_vs_oracle_pct": 1.1027719656075297,
+  "q4_causal_q3_saving_vs_q2_pct": 1.6912010149843337
+}
