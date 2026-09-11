@@ -1,0 +1,9 @@
+### Visual Metadata for fig01_framework.png
+- **Description**: 统一建模证据链与四问递进关系。
+- **Program**: `coder/scripts/make_schematic_figures.py`
+- **Predecessors**:
+  - 赛题原文
+  - modeler/Refinement_Round2.md
+- **Autonomous Insights**:
+  - 四问按照“确定性→不确定性→滚动预报→波动电价”递进。
+  - 最终结论同时报告经济性、供电风险与稳健性。
