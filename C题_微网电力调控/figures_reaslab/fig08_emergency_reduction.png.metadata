@@ -1,0 +1,10 @@
+### Visual Metadata for fig08_emergency_reduction.png
+- **Description**: 比较Q2和Q3的紧急购电总量。
+- **Program**: `coder/scripts/make_reaslab_figures.py`
+- **Predecessors**:
+  - results/result2.xlsx
+  - results/result3.xlsx
+- **Autonomous Insights**:
+  - Q2紧急购电: 367.487 MWh
+  - Q3紧急购电: 261.002 MWh
+  - 降幅: 28.98%
