@@ -1,0 +1,10 @@
+### Visual Metadata for fig07_forecast_selection.png
+- **Description**: 展示四个发布时刻外部光伏预报被滚动择优机制采用的比例。
+- **Program**: `coder/scripts/make_reaslab_figures.py`
+- **Predecessors**:
+  - writer/Paper_Final.md
+- **Autonomous Insights**:
+  - 6:00选择率: 100.0%
+  - 12:00选择率: 100.0%
+  - 0:00选择率: 7.19%
+  - 18:00选择率: 5.99%
