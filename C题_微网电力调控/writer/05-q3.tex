@@ -1,0 +1,69 @@
+\section{问题三：多时刻预报驱动的滚动调整}
+
+\subsection{光伏预报从整点到 10 min}
+
+附件 3 在 0:00、6:00、12:00、18:00 发布未来 24 h 整点光伏功率。本文以发布时刻已观测 PV 为插值起点，对未来整点预报做分段线性插值，得到与 10 min 决策网格一致的 $\hat P^{\mathrm{ext}}_{d,k,t}$。
+
+外部预报并非在所有时刻都优于历史模型，因此在每个发布时刻 $k\in\{0,6,12,18\}$，只用过去 28 d 的对应可执行区间计算外部预报与 EWMA 历史预报的 MAE，选择历史误差更低者。2--12 月中，外部预报在 0:00、6:00、12:00、18:00 的选择率分别约为 \textbf{7.19\%、100\%、100\%、5.99\%}。
+
+\begin{figure}[H]
+\centering
+\includegraphics{../figures_reaslab/fig07_forecast_selection.pdf}
+\caption{滚动择优中外部光伏预报的采用比例}
+\end{figure}
+
+\subsection{负载日内偏差修正}
+
+0:00 的负载预测仍用式（5）。在 6:00、12:00、18:00 时，根据当天已实现的最近至多 6 h 负载与基准预测之比取中位数，并截断到 $[0.85,1.15]$，用于乘性修正剩余日内负载预测。这样只使用已发生数据，不发生未来负载泄露。
+
+\subsection{滚动时域优化与调整结算}
+
+0:00 首先得到全日计划 $g^0_t$。在 6:00、12:00、18:00 到来时，以当前 SOC 和最新净负荷预测重新优化剩余区间，只执行下一次更新前的最优解。这一机制与模型预测控制的滚动时域思想一致。\citep{hu2018,pacaud2022} 设最终调整购电量为 $g_t$，定义
+\[
+u_t=(g_t-g^0_t)_+,\qquad v_t=(g^0_t-g_t)_+,
+\tag{11}
+\]
+则 $g_t=g^0_t+u_t-v_t$。主结算口径下，调整相对原计划的净增量为
+\[
+\Delta C_{\mathrm{adj}}=\sum_t\left(1.5p_tu_t-0.5p_tv_t\right),
+\tag{12}
+\]
+总费用为
+\[
+C_3=\sum_tp_tg^0_t+\Delta C_{\mathrm{adj}}+\sum_t5p_te_t.
+\tag{13}
+\]
+
+\begin{figure}[H]
+\centering
+\includegraphics{../figures_reaslab/fig11_q3_rolling_timeline.pdf}
+\caption{问题三滚动时域调整时间线}
+\end{figure}
+
+\subsection{是否需要其他时刻预报}
+
+\begin{figure}[H]
+\centering
+\includegraphics{../figures_reaslab/fig06_forecast_mae.pdf}
+\caption{日内滚动更新后的净负荷预测误差}
+\end{figure}
+
+由净负荷预测误差曲线可见，随着日内信息逐步揭示，修正后的剩余净负荷误差从 0:00 的 274.08 kW 降至 6:00 的 256.01 kW、12:00 的 211.74 kW 和 18:00 的 165.97 kW。需要注意，18:00 外部 PV 预报 MAE 仅 9.74 kW 主要是因为晚间 PV 接近 0，不能把这一数字直接解释为高信息价值。结合滚动择优选择率，\textbf{6:00 和 12:00 的光伏更新最值得引入}；18:00 的 PV 更新边际价值弱，但已实现负载仍可用于调整夜间负载预测。
+
+2--12 月问题三总费用为 \textbf{14,679,141.979 元}，较问题二降低 236,951.677 元，即 \textbf{1.59\%}；紧急购电量从 367,486.925 kWh 降至 261,002.458 kWh，下降 \textbf{28.98\%}。这说明滚动更新的主要价值不仅是少买电，而是降低代价极高的短缺暴露。
+
+\begin{figure}[H]
+\centering
+\includegraphics{../figures_reaslab/fig08_emergency_reduction.pdf}
+\caption{滚动调整降低紧急购电暴露}
+\end{figure}
+
+\subsection{结算口径敏感性}
+
+若把``下调部分违约电价为 50\%''解释为``原计划全额支付之外再额外收取 $0.5p$ 罚金''，重新求解后的 2--12 月总费用为 \textbf{14,927,429.698 元}，比主口径高约 \textbf{1.69\%}。两种口径均通过全部 SOC 与能量平衡检查。因此本文不将绝对费用差异伪装成唯一事实，而把主口径写清并将替代口径作为结算规则敏感性。
+
+\begin{figure}[H]
+\centering
+\includegraphics{../figures_reaslab/fig10_settlement_sensitivity.pdf}
+\caption{问题三结算规则解释的敏感性}
+\end{figure}
