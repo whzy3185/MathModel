@@ -1,0 +1,9 @@
+### Visual Metadata for fig10_settlement_sensitivity.png
+- **Description**: 以成对点图比较问题三两种结算规则解释下的总费用。
+- **Program**: `coder/scripts/make_reaslab_figures.py`
+- **Predecessors**:
+  - coder/logs/refinement_round2.json
+- **Autonomous Insights**:
+  - 主口径费用: 14679141.979 元
+  - 替代口径费用: 14927429.698 元
+  - 相对差异: 1.69%
