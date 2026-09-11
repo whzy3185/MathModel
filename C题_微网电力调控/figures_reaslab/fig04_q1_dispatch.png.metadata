@@ -1,0 +1,11 @@
+### Visual Metadata for fig04_q1_dispatch.png
+- **Description**: 比较无储能净负荷需求与优化后的外网购电时序。
+- **Program**: `coder/scripts/make_reaslab_figures.py`
+- **Predecessors**:
+  - 附件1.xlsx
+  - results/result1.xlsx
+- **Autonomous Insights**:
+  - 优化购电总量: 59482.699 kWh
+  - 无储能净负荷总量: 61789.935 kWh
+  - 最大单时段购电量: 1409.805 kWh
+  - 零购电时段数: 58
