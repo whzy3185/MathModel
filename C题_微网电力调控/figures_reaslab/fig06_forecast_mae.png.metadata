@@ -1,0 +1,10 @@
+### Visual Metadata for fig06_forecast_mae.png
+- **Description**: 展示日内信息更新后剩余净负荷预测误差的变化。
+- **Program**: `coder/scripts/make_reaslab_figures.py`
+- **Predecessors**:
+  - writer/Paper_Final.md
+- **Autonomous Insights**:
+  - 0:00 MAE: 274.08 kW
+  - 18:00 MAE: 165.97 kW
+  - 相对降幅: 39.44%
+  - 单调下降: True
