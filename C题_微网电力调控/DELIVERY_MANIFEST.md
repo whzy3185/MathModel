@@ -4,8 +4,8 @@
 
 | 交付物 | 字节数 | SHA-256 |
 |---|---:|---|
-| 微网与外部电网日前日内协同调度.pdf | 675113 | `e43e1ffef50a0990eade79195347d1bed1dd5facad447cef9678b0897de757ee` |
-| writer/Paper_Final.pdf | 675113 | `e43e1ffef50a0990eade79195347d1bed1dd5facad447cef9678b0897de757ee` |
+| 微网与外部电网日前日内协同调度.pdf | 675114 | `862441bc57956b6a32a11864287d8d6d1ceddc52937aa77b39e2bef317e890e9` |
+| writer/Paper_Final.pdf | 675114 | `862441bc57956b6a32a11864287d8d6d1ceddc52937aa77b39e2bef317e890e9` |
 | writer/Paper_Final.docx | 286324 | `4f777dad260a27fbc3d54ec165146fb8cf91806c4c83af0d1b7d0dca7263d30c` |
 | results/result1.xlsx | 7721 | `f1f2220efd4dfac986ffe8a120259afb08ce6a4438d6fe4b27d53f805c3f7fe0` |
 | results/result2.xlsx | 607042 | `b1d86ea338e4ad5f114ab8e713bb40092681724cac16e4d6059f2266fe0ba70f` |
@@ -21,7 +21,7 @@
 - `coder/solve_microgrid.py`、`coder/refinement_round2.py` 与验证日志；
 - `coder/scripts/`：科研图和 Graphviz 结构图生成脚本；
 - `figures_reaslab/*.png.metadata`：图表数据血缘与程序统计洞察；
-- `writer/`：按 ReasLab 中文 CUMCM 结构拆分的完整 LaTeX 正文与核心求解代码附录；
+- `writer/`：按 ReasLab 中文 CUMCM 结构拆分的完整 LaTeX 正文、参考文献、构建脚本与核心求解代码附录；
 - `reviewer/ReasLab_Visual_Final_Audit.md`：最终论文、数值、图形和证据审查。
 
-最终 PDF 与 `writer/Paper_Final.pdf` 的 SHA-256 完全一致，说明顶层提交版就是通过审查的 Writer 编译版，没有在审查后再次手工改数。
+最新最终 PDF 与 `writer/Paper_Final.pdf` 的 SHA-256 完全一致，说明顶层提交版就是同一份 Writer 编译结果，没有在审查后手工修改数值。
