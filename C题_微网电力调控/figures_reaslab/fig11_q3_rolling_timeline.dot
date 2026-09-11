@@ -1,0 +1,11 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.05, pad=0.15, nodesep=0.24, ranksep=0.38];
+  node [shape=box, style="rounded", fontname="Noto Sans CJK SC", fontsize=10, margin="0.11,0.07", color="black"];
+  edge [fontname="Noto Sans CJK SC", fontsize=8.5, arrowsize=0.7, color="black"];
+  n0 [label="0:00\n生成全天计划\n执行 0–6 h"];
+  n6 [label="6:00\n读取新 PV 预报\n修正负载\n重优化 6–12 h"];
+  n12 [label="12:00\n读取新 PV 预报\n更新当前 SOC\n重优化 12–18 h"];
+  n18 [label="18:00\n读取新 PV 预报\n更新夜间负载\n重优化 18–24 h"];
+  settle [label="24:00\n按计划、调整与紧急购电\n统一结算"];
+  n0 -> n6 -> n12 -> n18 -> settle;
+}
