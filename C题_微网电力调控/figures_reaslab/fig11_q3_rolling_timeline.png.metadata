@@ -1,0 +1,9 @@
+### Visual Metadata for fig11_q3_rolling_timeline.png
+- **Description**: 问题三从0:00计划到6/12/18时滚动调整的执行时间线。
+- **Program**: `coder/scripts/make_schematic_figures.py`
+- **Predecessors**:
+  - 赛题原文
+  - modeler/Refinement_Round2.md
+- **Autonomous Insights**:
+  - 滚动优化只使用发布时刻之前可获得的信息。
+  - 每次重优化仅执行到下一次预报更新，避免未来信息泄露。
