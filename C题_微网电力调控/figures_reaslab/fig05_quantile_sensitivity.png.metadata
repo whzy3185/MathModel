@@ -1,0 +1,10 @@
+### Visual Metadata for fig05_quantile_sensitivity.png
+- **Description**: 比较Q2/Q3在不同风险分位数下的全年费用。
+- **Program**: `coder/scripts/make_reaslab_figures.py`
+- **Predecessors**:
+  - writer/Paper_Final.md
+- **Autonomous Insights**:
+  - Q2最低费用分位: q=0.8
+  - Q3最低费用分位: q=0.8
+  - Q2_q0.8费用: 14.916 百万元
+  - Q3_q0.8费用: 14.679 百万元
