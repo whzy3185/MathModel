@@ -1,0 +1,9 @@
+### Visual Metadata for fig09_causal_oracle.png
+- **Description**: 以成对点图比较严格因果价格预测调度与完全预知价格Oracle的费用，避免截断柱状图夸大差异。
+- **Program**: `coder/scripts/make_reaslab_figures.py`
+- **Predecessors**:
+  - coder/logs/refinement_round2.json
+- **Autonomous Insights**:
+  - Q4-2因果溢价: 1.093%
+  - Q4-3因果溢价: 1.103%
+  - Q4-3相对Q4-2节省: 1.691%
