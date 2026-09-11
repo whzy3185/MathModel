@@ -1,0 +1,10 @@
+### Visual Metadata for fig03_price_profile.png
+- **Description**: 展示典型日电价的峰谷结构，为储能套利解释提供依据。
+- **Program**: `coder/scripts/make_reaslab_figures.py`
+- **Predecessors**:
+  - 附件1.xlsx
+- **Autonomous Insights**:
+  - 最低电价: 0.3713 元/kWh
+  - 最高电价: 1.3952 元/kWh
+  - 峰谷价差: 1.0239 元/kWh
+  - 最高价时刻: 约 20.67 h
