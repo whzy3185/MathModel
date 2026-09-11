@@ -1,0 +1,11 @@
+### Visual Metadata for fig02_load_pv.png
+- **Description**: 展示典型日负载与光伏功率的日内错峰关系。
+- **Program**: `coder/scripts/make_reaslab_figures.py`
+- **Predecessors**:
+  - 附件1.xlsx
+- **Autonomous Insights**:
+  - 负载峰值: 5959.0 kW，出现在约 9.17 h
+  - 光伏峰值: 7612.3 kW，出现在约 12.17 h
+  - 光伏高于负载的时段数: 30 个10 min时段
+  - 日均负载: 4626.0 kW
+  - 日均光伏: 2311.8 kW
